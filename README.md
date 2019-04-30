@@ -37,7 +37,7 @@ embedder = FaceNet()
 
 faces = detector.detect(image)
 embeddings = embedder.embeddings([
-    ann.selection.extract(image) for face in faces
+    face.selection.extract(image) for face in faces
 ])
 ```
 
