@@ -1,4 +1,5 @@
 import logging
+import os
 
 from scipy import spatial
 import tensorflow as tf
@@ -38,7 +39,7 @@ class FaceNet:
         if key not in metadata.MODEL_METADATA:
             raise NotImplementedError('Did not recognize key: ' + key)
         self.metadata = metadata.MODEL_METADATA[key]
-        self.cache_folder = cache_folder
+        self.cache_folder = os.path.expanduser(cache_folder)
         if use_prebuilt:
             builder = embedding_model.get_keras_model_from_prebuilt
         else:
