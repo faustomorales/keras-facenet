@@ -6,4 +6,7 @@ RUN apt-get update && apt-get install -y \
     xorg \
 	git \
 	&& rm -rf /var/lib/apt/lists/*
-RUN pip install keras opencv-python jupyterlab
+RUN pip install keras opencv-python jupyterlab pytest requests
+WORKDIR /usr/src
+COPY . .
+RUN pip install -e .

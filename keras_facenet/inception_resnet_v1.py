@@ -239,6 +239,7 @@ def InceptionResNetV1(input_shape=(160, 160, 3),
                            epsilon=0.001,
                            scale=False,
                            name=bn_name)(x)
+    x = Lambda(K.l2_normalize, arguments={'axis': 1}, name='normalize')(x)
 
     # Create model
     model = Model(inputs, x, name='inception_resnet_v1')

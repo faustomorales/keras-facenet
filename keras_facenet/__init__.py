@@ -2,7 +2,6 @@ import logging
 import os
 
 from scipy import spatial
-import tensorflow as tf
 import cv2
 
 from . import embedding_model, metadata
@@ -50,7 +49,11 @@ class FaceNet:
         if self.metadata['fixed_image_standardization']:
             return (np.float32(image) - 127.5) / 127.5
         else:
-            return tf.image.per_image_standardization(image)
+            mean = np.mean(image)
+            std = np.std(image)
+            std_adj = np.maximum(std, 1.0/np.sqrt(image.size))
+            y = np.multiply(np.subtract(image, mean), 1/std_adj)
+            return y
 
     def embeddings(self, images):
         """Compute embeddings for a set of images.

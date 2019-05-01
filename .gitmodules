@@ -1,0 +1,4 @@
+[submodule "tests/facenet"]
+	path = tests/facenet
+	url = https://github.com/davidsandberg/facenet.git
+	branch = master
