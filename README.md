@@ -17,7 +17,8 @@ from keras_facenet import FaceNet
 embedder = FaceNet()
 
 # images is a list of images, each as an
-# np.ndarray of shape (H, W, 3).
+# np.ndarray of shape (H, W, 3) where color
+# is provided in RGB order.
 embeddings = embedder.embeddings(images)
 ```
 
