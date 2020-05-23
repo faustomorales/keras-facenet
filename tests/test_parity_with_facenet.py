@@ -12,15 +12,23 @@ logging.basicConfig()
 log = logging.getLogger()
 log.setLevel('INFO')
 
-facenet_data_dir = tempfile.mkdtemp()
-keras_facenet_data_dir = tempfile.mkdtemp()
-
+facenet_data_dir = 'tests/facenet_data_dir'
+keras_facenet_data_dir = 'tests/keras_facenet_data_dir'
+os.makedirs(facenet_data_dir, exist_ok=True)
+os.makedirs(keras_facenet_data_dir, exist_ok=True)
 images = np.random.randn(3, 160, 160, 3)
 
 subprocess.call(['git', 'submodule', 'init'])
 subprocess.call(['git', 'submodule', 'update'])
 
 from .facenet.src import download_and_extract, facenet  # noqa: E402
+
+def load_model(model):
+    # This is a modified version of facenet.load_model to support TensorFlow 2.x.
+    model_exp = os.path.expanduser(model)
+    meta_file, ckpt_file = facenet.get_model_filenames(model_exp)    
+    saver = tf.compat.v1.train.import_meta_graph(os.path.join(model_exp, meta_file))
+    saver.restore(tf.compat.v1.get_default_session(), os.path.join(model_exp, ckpt_file))
 
 
 def run_test(model_name):
@@ -34,11 +42,11 @@ def run_test(model_name):
     )
     emb_kfn = kfn.embeddings(images)
     with tf.Graph().as_default():
-        with tf.Session() as sess:
-            facenet.load_model(os.path.join(facenet_data_dir, model_name))
-            images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")  # noqa: E501
-            embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")  # noqa: E501
-            phase_train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")  # noqa: E501
+        with tf.compat.v1.Session() as sess:
+            load_model(os.path.join(facenet_data_dir, model_name))
+            images_placeholder = tf.compat.v1.get_default_graph().get_tensor_by_name("input:0")  # noqa: E501
+            embeddings = tf.compat.v1.get_default_graph().get_tensor_by_name("embeddings:0")  # noqa: E501
+            phase_train_placeholder = tf.compat.v1.get_default_graph().get_tensor_by_name("phase_train:0")  # noqa: E501
             if kfn.metadata['fixed_image_standardization']:
                 X = (images - 127.5) / 127.5
             else:

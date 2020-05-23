@@ -8,11 +8,11 @@ JUPYTER_OPTIONS := --ip=0.0.0.0 --port=$(NOTEBOOK_PORT) --no-browser --allow-roo
 build:
 	docker build -t $(IMAGE_NAME) .
 lab-server:
-	docker run -it $(VOLUMES) -p $(NOTEBOOK_PORT):$(NOTEBOOK_PORT) $(IMAGE_NAME) jupyter lab $(JUPYTER_OPTIONS)
+	docker run --rm -it $(VOLUMES) -p $(NOTEBOOK_PORT):$(NOTEBOOK_PORT) $(IMAGE_NAME) jupyter lab $(JUPYTER_OPTIONS)
 bash:
-	docker run -it $(VOLUMES) $(IMAGE_NAME) bash
+	docker run --rm -it $(VOLUMES) $(IMAGE_NAME) bash
 test:
-	docker run -it $(VOLUMES) $(IMAGE_NAME) pytest
+	docker run --rm -it $(VOLUMES) $(IMAGE_NAME) pytest
 clean:
 	rm -rf build
 	rm -rf dist

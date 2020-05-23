@@ -137,3 +137,5 @@ cache
 .Trash-0
 
 /notebooks
+facenet_data_dir
+keras_facenet_data_dir
