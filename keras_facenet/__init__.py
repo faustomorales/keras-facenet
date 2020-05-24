@@ -83,7 +83,6 @@ class FaceNet:
                 ) for d in detections
             ]
         else:
-            print('mark 0')
             crops = [utils.cropBox(image, d) for d in detections]
         return [{**d, 'embedding': e} for d, e in zip(detections, self.embeddings(images=crops))]
 
