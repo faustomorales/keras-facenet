@@ -4,7 +4,7 @@ import os
 from scipy import spatial
 import cv2
 
-from . import embedding_model, metadata
+from . import embedding_model, metadata, utils
 import numpy as np
 
 log = logging.getLogger(__name__)
@@ -54,6 +54,44 @@ class FaceNet:
             std_adj = np.maximum(std, 1.0/np.sqrt(image.size))
             y = np.multiply(np.subtract(image, mean), 1/std_adj)
             return y
+
+    @classmethod
+    def mtcnn(cls):
+        if not hasattr(cls, '_mtcnn'):
+            from mtcnn.mtcnn import MTCNN
+            cls._mtcnn = MTCNN()
+        return cls._mtcnn
+
+    def extract(self, filepath_or_image, threshold=0.95, warp=False, fill=False, marginX=0, marginY=0):
+        if isinstance(filepath_or_image, str):
+            image = cv2.imread(filepath_or_image)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        else:
+            image = filepath_or_image
+        detections = [detection for detection in self.mtcnn().detect_faces(image) if detection['confidence'] > threshold]
+        if not detections:
+            return []
+        if warp:
+            crops = [
+                utils.warpBox(
+                    image,
+                    detection=d,
+                    target_height=self.metadata['image_size'],
+                    target_width=self.metadata['image_size'],
+                    marginX=int(marginX*self.metadata['image_size']),
+                    marginY=int(marginY*self.metadata['image_size']),
+                    fill=fill
+                ) for d in detections
+            ]
+        else:
+            crops = [
+                image[
+                    d['box'][1]:d['box'][1]+d['box'][3],
+                    d['box'][0]:d['box'][0] + d['box'][2]
+                ] for d in detections
+            ]
+        return [{**d, 'embedding': e} for d, e in zip(detections, self.embeddings(images=crops))]
+
 
     def embeddings(self, images):
         """Compute embeddings for a set of images.
