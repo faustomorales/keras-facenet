@@ -28,6 +28,15 @@ def sha256sum(filename):
             h.update(mv[:n])
     return h.hexdigest()
 
+def cropBox(image, detection):
+    x1, y1, w, h = detection['box']
+    if x1 < 0:
+        w += x1
+        x1 = 0
+    if y1 < 0:
+        h += y1
+        y1 = 0
+    return image[y1:y1+h, x1:x1+w]
 
 def warpBox(image,
             detection,

@@ -9,7 +9,6 @@ import numpy as np
 
 log = logging.getLogger(__name__)
 
-
 class FaceNet:
     """An object wrapping the FaceNet embedding model.
 
@@ -84,14 +83,8 @@ class FaceNet:
                 ) for d in detections
             ]
         else:
-            x1, y1, w, h = d['box']
-            if x1 < 0:
-                w += x1
-                x1 = 0
-            if y1 < 0:
-                h += y1
-                y1 = 0
-            crops = [image[y1:y1+h, x1:x1+w] for d in detections]
+            print('mark 0')
+            crops = [utils.cropBox(image, d) for d in detections]
         return [{**d, 'embedding': e} for d, e in zip(detections, self.embeddings(images=crops))]
 
 
