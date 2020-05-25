@@ -96,6 +96,8 @@ class FaceNet:
 
     def extract(self, *args, **kwargs):
         crops, detections = self.get_crops(*args, **kwargs)
+        if not crops:
+            return []
         return [{**d, 'embedding': e} for d, e in zip(detections, self.embeddings(images=crops))]
 
 
