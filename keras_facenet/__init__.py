@@ -60,8 +60,8 @@ class FaceNet:
             from mtcnn.mtcnn import MTCNN
             cls._mtcnn = MTCNN()
         return cls._mtcnn
-
-    def extract(self, filepath_or_image, threshold=0.95, warp=False, fill=False, marginX=0, marginY=0):
+    
+    def get_crops(self, filepath_or_image, threshold=0.95, warp=False, fill=False, marginX=0, marginY=0):
         if isinstance(filepath_or_image, str):
             image = cv2.imread(filepath_or_image)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -69,7 +69,9 @@ class FaceNet:
             image = filepath_or_image
         detections = [detection for detection in self.mtcnn().detect_faces(image) if detection['confidence'] > threshold]
         if not detections:
-            return []
+            return [], []
+        marginX = int(marginX*self.metadata['image_size'])
+        marginY = int(marginY*self.metadata['image_size'])
         if warp:
             crops = [
                 utils.warpBox(
@@ -77,13 +79,23 @@ class FaceNet:
                     detection=d,
                     target_height=self.metadata['image_size'],
                     target_width=self.metadata['image_size'],
-                    marginX=int(marginX*self.metadata['image_size']),
-                    marginY=int(marginY*self.metadata['image_size']),
+                    marginX=marginX,
+                    marginY=marginY,
                     fill=fill
                 ) for d in detections
             ]
         else:
-            crops = [utils.cropBox(image, d) for d in detections]
+            crops = [
+                utils.cropBox(
+                    image,
+                    detection=d,
+                    marginX=marginX,
+                    marginY=marginY
+                ) for d in detections]
+        return crops, detections
+
+    def extract(self, *args, **kwargs):
+        crops, detections = self.get_crops(*args, **kwargs)
         return [{**d, 'embedding': e} for d, e in zip(detections, self.embeddings(images=crops))]
 
 
