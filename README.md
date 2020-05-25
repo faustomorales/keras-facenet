@@ -10,52 +10,23 @@ pip install keras-facenet
 ```
 
 ## Usage
-To get the embeddings for cropped images of some faces, you can do something like the following.
+To get embeddings for the faces in an image, you can do something like the following.
 
 ```
 from keras_facenet import FaceNet
 embedder = FaceNet()
 
-# images is a list of images, each as an
-# np.ndarray of shape (H, W, 3) where color
-# is provided in RGB order.
+# Gets a detection dict for each face
+# in an image. Each one has the bounding box and
+# face landmarks (from mtcnn.MTCNN) along with
+# the embedding from FaceNet.
+detections = embeddering.extract(image, thhreshold=0.95)
+
+# If you have pre-cropped images, you can skip the
+# detection step.
 embeddings = embedder.embeddings(images)
 ```
 
-`keras-facenet` expects you to provide cropped images of faces and does not ship with a face detector. You can use another library of your choice to get those lovely cropped images. I provide two examples below.
-
-### Using `keras-facenet` with `mira`
-`mira` is another package I developed to do simple object detection. Install it using `pip install mira`
-
-Then you can use `mira` to extract faces with the built-in [MTCNN](https://kpzhang93.github.io/MTCNN_face_detection_alignment/paper/spl.pdf) model.
-
-```
-from mira.detectors import MTCNN
-from keras_facenet import FaceNet
-
-detector = MTCNN()
-embedder = FaceNet()
-
-faces = detector.detect(image)
-embeddings = embedder.embeddings([
-    face.selection.extract(image) for face in faces
-])
-```
-
-### Using `keras-facenet` with `face_recognition`
-`face_recognition` is a fantastic all-in-one package for face detection and recognition. Anecdotally, I find that its face detection model is not quite as good as MTCNN and that the embeddings are not quite as good as FaceNet. but you can use its detection model with FaceNet as follows.
-
-```
-from face_recognition import face_location
-from keras_facenet import 
-
-embedder = FaceNet()
-
-faces = face_locations(image)
-embeddings = embedder.embeddings([
-    image[t:b, l:r] for for t, r, b, l in faces
-])
-```
 
 ### Logging
 To see what's going on under the hood, set logging to view `INFO` logs. If using in a Jupyter notebook, you can use the following.
