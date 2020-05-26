@@ -20,7 +20,7 @@ embedder = FaceNet()
 # in an image. Each one has the bounding box and
 # face landmarks (from mtcnn.MTCNN) along with
 # the embedding from FaceNet.
-detections = embedder.extract(image, thhreshold=0.95)
+detections = embedder.extract(image, threshold=0.95)
 
 # If you have pre-cropped images, you can skip the
 # detection step.
