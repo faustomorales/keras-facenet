@@ -76,8 +76,7 @@ class FaceNet:
         detections = [detection for detection in self.mtcnn().detect_faces(image) if detection['confidence'] > threshold]
         if not detections:
             return [], []
-        margin = int(0.1*self.metadata['image_size'])
-        crops = [utils.cropBox(image, detection=d, margin=margin) for d in detections]
+        crops = [utils.cropBox(image, detection=d, margin=0.1) for d in detections]
         return detections, crops
 
     def extract(self, filepath_or_image, threshold=0.95):

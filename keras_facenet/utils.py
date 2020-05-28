@@ -30,10 +30,10 @@ def sha256sum(filename):
 
 def cropBox(image, detection, margin):
     x1, y1, w, h = detection['box']
-    x1 -= margin
-    y1 -= margin
-    w += 2*margin
-    h += 2*margin
+    x1 -= int(margin*w)
+    y1 -= int(margin*h)
+    w += int(2*(margin*w))
+    h += int(2*(margin*h))
     if x1 < 0:
         w += x1
         x1 = 0
