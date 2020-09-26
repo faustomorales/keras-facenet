@@ -1,7 +1,7 @@
 # flake8: noqa
 MODEL_METADATA = {
     '20180402-114759': {
-        'zip_url': 'https://storage.googleapis.com/keras-facenet/20180402-114759.zip',
+        'zip_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20180402-114759.zip',
         'zip_local_name': '20180402-114759.zip',
         'zip_sha256': '669f37d3954b72b53121ff0638ca5bb8b14309bfe4767fe6bd851eee75f1f0de',
         'dir_name': '20180402-114759',
@@ -10,8 +10,8 @@ MODEL_METADATA = {
         'subtract_mean': True,
         'keras_sha256': 'c99bfb20ca9959afb7bb83a1a6f4b7fc65bacf471c7f945c15a39881057a56be',
         'keras_weights_sha256': '8b71e7045497e841c00ee568f031d1a4d30908fceadf6884aef2dec4d545202b',
-        'keras_url': 'https://storage.googleapis.com/keras-facenet/20180402-114759.h5',
-        'keras_weights_url': 'https://storage.googleapis.com/keras-facenet/20180402-114759-weights.h5',
+        'keras_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20180402-114759.h5',
+        'keras_weights_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20180402-114759-weights.h5',
         'fixed_image_standardization': True,
         'keras_model_filename': '20180402-114759.h5',
         'keras_weights_filename': '20180402-114759-weights.h5',
@@ -37,7 +37,7 @@ MODEL_METADATA = {
         }
     },
     '20180408-102900': {
-        'zip_url': 'https://storage.googleapis.com/keras-facenet/20180408-102900.zip',
+        'zip_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20180408-102900.zip',
         'zip_local_name': '20180408-102900.zip',
         'zip_sha256': '2a32a4d6b797b0e35e065c674dfa2d60e9eb2372aa10728bd0b221abe12490ac',
         'dir_name': '20180408-102900',
@@ -45,8 +45,8 @@ MODEL_METADATA = {
         'image_size': 160,
         'keras_weights_sha256': 'af526097bd89ff84dda94dc071ff39c4cf39922cf0a9d9dea652853cda9616be',
         'keras_sha256': '23cdb7f96553c3baa32fbb4f96aaa398a721ea26cd49de5a72c9beea6150d13e',
-        'keras_url': 'https://storage.googleapis.com/keras-facenet/20180408-102900.h5',
-        'keras_weights_url': 'https://storage.googleapis.com/keras-facenet/20180408-102900-weights.h5',
+        'keras_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20180408-102900.h5',
+        'keras_weights_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20180408-102900-weights.h5',
         'reader_prefix': 'model-20180408-102900.ckpt-90',
         'keras_model_filename': '20180408-102900.h5',
         'keras_weights_filename': '20180408-102900-weights.h5',
@@ -73,12 +73,12 @@ MODEL_METADATA = {
         }
     },
     '20170511-185253': {
-        'zip_url': 'https://storage.googleapis.com/keras-facenet/20170511-185253.zip',
+        'zip_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20170511-185253.zip',
         'zip_sha256': '0dd66caa1e9b7a7c91424bca150a66da193c4e626e75bfa50ff406180a09c7e9',
         'keras_model_filename': '20170511-185253.h5',
         'keras_weights_filename': '20170511-185253-weights.h5',
-        'keras_url': 'https://storage.googleapis.com/keras-facenet/20170511-185253.h5',
-        'keras_weights_url': 'https://storage.googleapis.com/keras-facenet/20170511-185253-weights.h5',
+        'keras_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20170511-185253.h5',
+        'keras_weights_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20170511-185253-weights.h5',
         'keras_sha256': 'd7dbcee552427cd497190894ad5c9763313c3249f0b5dc2d6e0cc3e42d5ea063',
         'keras_weights_sha256': '28db99aaafce0e62b2cdb1db5ac733ffa9e52a365e1a3ca0a13c5159bd4363c4',
         'zip_local_name': '20170511-185253.zip',
@@ -109,10 +109,10 @@ MODEL_METADATA = {
         }
     },
     '20170512-110547': {
-        'zip_url': 'https://storage.googleapis.com/keras-facenet/20170512-110547.zip',
+        'zip_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20170512-110547.zip',
         'zip_sha256': '24a020c3d7794a590d834c4963f8a7c59819b8950a54fcb08e10b2a253ab0a30',
-        'keras_url': 'https://storage.googleapis.com/keras-facenet/20170512-110547.h5',
-        'keras_weights_url': 'https://storage.googleapis.com/keras-facenet/20170512-110547-weights.h5',
+        'keras_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20170512-110547.h5',
+        'keras_weights_url': 'https://github.com/faustomorales/keras-facenet/releases/download/v0.3.1/20170512-110547-weights.h5',
         'keras_sha256': '0ce0e39b5c8b5a46b7005c520441e9776f058d650a66d7ef0ec28b67a8d06d6c',
         'keras_weights_sha256': '668e950140ad76f1e21e3a2bc1d3ad9c673734ea8ea1abbf4ecc44d1dbdd400b',
         'keras_model_filename': '20170512-110547.h5',
